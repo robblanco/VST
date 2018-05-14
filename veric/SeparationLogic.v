@@ -743,6 +743,7 @@ Fixpoint nojumps s :=
  | Sset _ _ => true
  | Sassign _ _ => true
  | Sskip => true
+ | Slabel _ s => nojumps s
  | _ => false
 end.
 
@@ -753,6 +754,7 @@ Fixpoint nocontinue s :=
  | Sswitch _ sl => nocontinue_ls sl
  | Sgoto _ => false
  | Scontinue => false
+ | Slabel _ s => nocontinue s
  | _ => true
 end
 with nocontinue_ls sl :=

@@ -20,6 +20,7 @@ Require Import VST.veric.initial_world.
 Require Import VST.veric.semax_call.
 Require Import VST.veric.semax_straight.
 Require Import VST.veric.semax_loop.
+Require Import VST.veric.semax_loop2.
 Require Import VST.veric.semax_switch.
 Require Import VST.veric.semax_prog.
 Require Import VST.veric.semax_ext.
