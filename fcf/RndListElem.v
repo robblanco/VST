@@ -36,20 +36,7 @@ End RndListElem.
 
 Local Open Scope list_scope.
 
-Lemma rndListElem_support: 
-      forall (A : Set)(eqd : EqDec A)(ls : list A) a,
-        In a ls <-> 
-        In (Some a) (getSupport (rndListElem eqd ls)).
-
-      intuition.
-      unfold rndListElem.
-      case_eq (length ls); intuition.
-      exfalso.
-      destruct ls; simpl in *; intuition.
-      
-      eapply getSupport_In_Seq.
-
-      eapply in_getSupport_RndNat.
+      (* Local definitions for rndListElem_support *)
 
       Fixpoint firstIndexOf(A : Set)(eqd : eq_dec A)(ls : list A)(a : A)(def : nat) :=
         match ls with
@@ -95,17 +82,6 @@ Lemma rndListElem_support:
 
       Qed.
 
-      rewrite <- H0.
-      eapply firstIndexOf_in_lt; eauto.
-      simpl.
-      left.
-
-      eapply nth_firstIndexOf; trivial.
-      
-      unfold rndListElem in *.
-      repeat simp_in_support.
-      discriminate.
-      
       Theorem nth_option_In : 
         forall (A : Set)(ls : list A)(a : A) i,
           nth_option ls i = Some a ->
@@ -123,6 +99,32 @@ Lemma rndListElem_support:
 
       Qed.
 
+Lemma rndListElem_support: 
+      forall (A : Set)(eqd : EqDec A)(ls : list A) a,
+        In a ls <-> 
+        In (Some a) (getSupport (rndListElem eqd ls)).
+
+      intuition.
+      unfold rndListElem.
+      case_eq (length ls); intuition.
+      exfalso.
+      destruct ls; simpl in *; intuition.
+      
+      eapply getSupport_In_Seq.
+
+      eapply in_getSupport_RndNat.
+
+      rewrite <- H0.
+      eapply firstIndexOf_in_lt; eauto.
+      simpl.
+      left.
+
+      eapply nth_firstIndexOf; trivial.
+      
+      unfold rndListElem in *.
+      repeat simp_in_support.
+      discriminate.
+      
       eapply nth_option_In; eauto.
 
       Grab Existential Variables.
